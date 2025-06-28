@@ -1,0 +1,10 @@
+/objs
+*.o
+/deps
+*.d
+*.a
+*.so
+
+*.dSYM
+.vscode/
+hotrace
