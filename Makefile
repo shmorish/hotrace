@@ -1,14 +1,14 @@
 NAME		:= hotrace
 
 # SOURCES
+# Note: Need to fix
 SRCS_DIR	:= ./srcs
 SRCS		:= $(shell find ./srcs -name "*.c" | tr '\n' ' ')
 
 # OBJECTS
 OBJS_DIR	:= ./objs
-DEPS_DIR	:= ./deps
 OBJS		:= $(subst $(SRCS_DIR), $(OBJS_DIR), $(SRCS:.c=.o))
-DEPS		:= $(subst $(SRCS_DIR), $(DEPS_DIR), $(SRCS:.c=.d))
+DEPS		:= $(OBJS:.o=.d)
 
 # LINKER
 INC			= -I ./incs/
@@ -23,19 +23,15 @@ endif
 
 all			: $(NAME)
 
-$(NAME)	: $(OBJS) $(DEPS)
+$(NAME)	: $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 
 $(OBJS_DIR)/%.o: srcs/%.c
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(DEPS_DIR)/%.d: srcs/%.c
-	mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -MM $< > $@
-
 clean		:
-	$(RM) -r $(OBJS_DIR) $(DEPS_DIR)
+	$(RM) -r $(OBJS_DIR)
 
 fclean		: clean
 	$(RM) $(NAME)
