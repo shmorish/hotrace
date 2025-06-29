@@ -50,7 +50,10 @@ void	search_data(t_hashtable *table)
 			break ;
 		found_value = search_value(table, search_key);
 		if (found_value)
+		{
 			ft_putstr(found_value);
+			ft_putstr("\n");
+		}
 		else
 		{
 			ft_putstr(search_key);

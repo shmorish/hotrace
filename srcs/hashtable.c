@@ -37,9 +37,11 @@ unsigned int	hash_function(const char *key, size_t table_size)
 	int				c;
 
 	hash = 5381;
-	while ((c = *key++))
+	c = *key++;
+	while (c)
 	{
 		hash = ((hash << 5) + hash) + c;
+		c = *key++;
 	}
 	return (hash % table_size);
 }
