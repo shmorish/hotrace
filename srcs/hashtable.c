@@ -39,7 +39,7 @@ int	insert_entry(t_hashtable *table, char *key, char *value)
 		return (0);
 	index = hash_function(key, table->size);
 	original_index = index;
-	while (table->entries[index].key != NULL)
+	while (&table->entries[index] != NULL)
 	{
 		if (ft_strcmp(table->entries[index].key, key) == 0)
 		{

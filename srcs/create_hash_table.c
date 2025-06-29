@@ -20,7 +20,7 @@ t_hashtable	*create_hash_table(t_list *l, int size)
 	t = malloc(sizeof(t_hashtable));
 	t->size = size * 2;
 	t->count = 0;
-	t->entries = malloc(size * 2 * sizeof(t_entry));
+	t->entries = ft_calloc(size * 2, sizeof(t_entry));
 	while (l != NULL)
 	{
 		insert_entry(t, l->key, l->value);
