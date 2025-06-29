@@ -19,7 +19,6 @@
 # include <unistd.h>
 
 # define TABLE_SIZE 1024
-# define DELETED_MARKER ((void*)1)
 
 typedef struct s_entry
 {
@@ -41,6 +40,9 @@ int				insert_entry(t_hashtable *table, char *key, char *value);
 char			*search_value(t_hashtable *table, char *key);
 void			free_hashtable(t_hashtable *table);
 char			*get_next_line(int fd);
+int				read_buffer(int fd, char *buffer, int *pos, int *len);
+int				process_line(char *buffer, char *line, int *pos, int *line_pos);
+char			*allocate_line(void);
 
 // libs
 void			ft_bzero(void *s, size_t n);

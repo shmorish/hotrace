@@ -10,7 +10,37 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hotrace.h"
+#include "hashtable.h"
+
+static char	*allocate_line(void)
+{
+	char	*line;
+
+	line = ft_calloc(1024, sizeof(char));
+	return (line);
+}
+
+static int	read_buffer(int fd, char *buffer, int *pos, int *len)
+{
+	*len = read(fd, buffer, 1024);
+	if (*len <= 0)
+		return (0);
+	*pos = 0;
+	return (1);
+}
+
+static int	process_line(char *buffer, char *line, int *pos, int *line_pos)
+{
+	if (buffer[*pos] == '\n')
+	{
+		(*pos)++;
+		return (1);
+	}
+	line[(*line_pos)++] = buffer[(*pos)++];
+	if (*line_pos >= 1023)
+		return (1);
+	return (0);
+}
 
 char	*get_next_line(int fd)
 {
@@ -20,7 +50,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	int			line_pos;
 
-	line = malloc(1024);
+	line = allocate_line();
 	if (!line)
 		return (NULL);
 	line_pos = 0;
@@ -28,27 +58,15 @@ char	*get_next_line(int fd)
 	{
 		if (pos >= len)
 		{
-			len = read(fd, buffer, 1024);
-			if (len <= 0)
+			if (!read_buffer(fd, buffer, &pos, &len))
 			{
 				if (line_pos == 0)
-				{
-					free(line);
-					return (NULL);
-				}
+					return (free(line), NULL);
 				break ;
 			}
-			pos = 0;
 		}
-		if (buffer[pos] == '\n')
-		{
-			pos++;
-			break ;
-		}
-		line[line_pos++] = buffer[pos++];
-		if (line_pos >= 1023)
+		if (process_line(buffer, line, &pos, &line_pos))
 			break ;
 	}
-	line[line_pos] = '\0';
 	return (line);
 }
