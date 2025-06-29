@@ -6,7 +6,7 @@
 /*   By: shmorish <shmorish@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2000/00/00 00:00:00 by shmorish          #+#    #+#             */
-/*   Updated: 2025/06/29 21:14:47 by aenshin          ###   ########.fr       */
+/*   Updated: 2025/06/29 23:16:22 by aenshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ int	main(void)
 	table = create_hash_table(list, table_size);
 	free_list(list);
 	search_data(table);
-	free_hashtable(table);
 	return (0);
 }
 
