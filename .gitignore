@@ -4,6 +4,8 @@
 *.d
 *.a
 *.so
+*.swp
+*.swo
 
 *.dSYM
 .vscode/
