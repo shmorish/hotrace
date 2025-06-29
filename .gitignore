@@ -8,3 +8,6 @@
 *.dSYM
 .vscode/
 hotrace
+
+tests/
+*.htr

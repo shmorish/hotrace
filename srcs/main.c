@@ -12,11 +12,14 @@
 
 #include "hashtable.h"
 
-void	input_data(t_hashtable *table)
+t_list	*input_list(void)
 {
 	char	*key;
 	char	*value;
+	t_list	*list;
+	t_entry	*entry;
 
+	list = NULL;
 	while (1)
 	{
 		key = get_next_line(0);
@@ -32,10 +35,18 @@ void	input_data(t_hashtable *table)
 			free(key);
 			break ;
 		}
-		insert_entry(table, key, value);
-		free(key);
-		free(value);
+		entry = malloc(sizeof(t_entry));
+		if (!entry)
+		{
+			free(key);
+			free(value);
+			break ;
+		}
+		entry->key = key;
+		entry->value = value;
+		ft_lstadd_back(&list, ft_lstnew(entry));
 	}
+	return (list);
 }
 
 void	search_data(t_hashtable *table)
@@ -63,17 +74,20 @@ void	search_data(t_hashtable *table)
 	}
 }
 
-int	main(void)
+int    main(void)
 {
-	t_hashtable	*table;
+    t_hashtable    *table;
+    t_list *list;
+	int table_size;
 
-	table = create_hashtable(TABLE_SIZE);
-	if (!table)
-		return (1);
-	input_data(table);
-	search_data(table);
-	free_hashtable(table);
-	return (0);
+	list = input_list();
+    table_size = ft_lstsize(list);
+	printf("Table size: %d\n", table_size);
+	table = create_hash_table(list, table_size);
+	free_list(list);
+    search_data(table);
+    free_hashtable(table);
+    return (0);
 }
 
 // __attribute__((destructor))
