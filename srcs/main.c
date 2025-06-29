@@ -13,34 +13,20 @@
 #include "hashtable.h"
 #include "get_next_line.h"
 
-t_entry	*create_entry(char *key, char *value)
-{
-	t_entry	*entry;
-
-	entry = malloc(sizeof(t_entry));
-	if (!entry)
-	{
-		free(key);
-		free(value);
-		return (NULL);
-	}
-	entry->key = key;
-	entry->value = value;
-	return (entry);
-}
-
 t_list	*input_list(void)
 {
 	char	*key;
 	char	*value;
 	t_list	*list;
-	t_entry	*entry;
+	t_list	*last;
+	t_list	*new_node;
 
 	list = NULL;
+	last = NULL;
 	while (1)
 	{
 		key = get_next_line(0);
-		if (!key || key[0] == '\0')
+		if (!key || key[0] == '\n')
 		{
 			if (key)
 				free(key);
@@ -49,10 +35,19 @@ t_list	*input_list(void)
 		value = get_next_line(0);
 		if (!value)
 			return (free(key), list);
-		entry = create_entry(key, value);
-		if (!entry)
+		new_node = ft_lstnew(key, value);
+		if (!new_node)
 			return (list);
-		ft_lstadd_back(&list, ft_lstnew(entry));
+		if (!list)
+		{
+			list = new_node;
+			last = new_node;
+		}
+		else
+		{
+			last->next = new_node;
+			last = new_node;
+		}
 	}
 	return (list);
 }
@@ -71,7 +66,6 @@ void	search_data(t_hashtable *table)
 		if (found_value)
 		{
 			ft_putstr(found_value);
-			ft_putstr("\n");
 		}
 		else
 		{
@@ -90,7 +84,8 @@ int	main(void)
 
 	list = input_list();
 	table_size = ft_lstsize(list);
-	printf("Table size: %d\n", table_size);
+	// printf("Table size: %d\n", table_size);
+	// print_list(list);
 	table = create_hash_table(list, table_size);
 	free_list(list);
 	search_data(table);
@@ -98,8 +93,8 @@ int	main(void)
 	return (0);
 }
 
-// __attribute__((destructor))
-// void cleanup(void)
-// {
-// 	system("leaks -q hotrace");
-// }
+__attribute__((destructor))
+void cleanup(void)
+{
+	system("leaks -q hotrace");
+}

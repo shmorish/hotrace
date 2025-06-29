@@ -13,24 +13,6 @@
 #include "hashtable.h"
 #include <unistd.h>
 
-// t_hashtable	*create_hashtable(size_t size)
-// {
-// 	t_hashtable	*table;
-
-// 	table = malloc(sizeof(t_hashtable));
-// 	if (!table)
-// 		return (NULL);
-// 	table->entries = ft_calloc(size, sizeof(t_entry));
-// 	if (!table->entries)
-// 	{
-// 		free(table);
-// 		return (NULL);
-// 	}
-// 	table->size = size;
-// 	table->count = 0;
-// 	return (table);
-// }
-
 unsigned int	hash_function(const char *key, size_t table_size)
 {
 	unsigned int	hash;

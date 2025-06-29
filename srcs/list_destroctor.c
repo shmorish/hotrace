@@ -16,7 +16,8 @@ static void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
 	if (lst == NULL || del == NULL)
 		return ;
-	del(lst->content);
+	del(lst->key);
+	del(lst->value);
 	free(lst);
 }
 
@@ -35,20 +36,9 @@ static void	ft_lstclear(t_list **lst, void (*del)(void *))
 	*lst = NULL;
 }
 
-static void	free_entry(void *content)
-{
-	t_entry	*entry;
-
-	if (content == NULL)
-		return ;
-	entry = (t_entry *)content;
-	free(entry->key);
-	free(entry->value);
-}
-
 void	free_list(t_list *list)
 {
 	if (list == NULL)
 		return ;
-	ft_lstclear(&list, free_entry);
+	ft_lstclear(&list, free);
 }

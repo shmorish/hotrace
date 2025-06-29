@@ -12,14 +12,15 @@
 
 #include "hashtable.h"
 
-t_list	*ft_lstnew(void *content)
+t_list	*ft_lstnew(char *key, char *value)
 {
 	t_list	*ret;
 
 	ret = (t_list *)malloc(sizeof(t_list));
 	if (ret == NULL)
 		return (NULL);
-	ret->content = content;
+	ret->key = key;
+	ret->value = value;
 	ret->next = NULL;
 	return (ret);
 }

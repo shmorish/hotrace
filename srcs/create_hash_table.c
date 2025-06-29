@@ -16,7 +16,6 @@
 t_hashtable	*create_hash_table(t_list *l, int size)
 {
 	t_hashtable	*t;
-	t_entry		*e;
 
 	t = malloc(sizeof(t_hashtable));
 	t->size = size;
@@ -24,22 +23,19 @@ t_hashtable	*create_hash_table(t_list *l, int size)
 	t->entries = malloc(size * 2 * sizeof(t_entry));
 	while (l != NULL)
 	{
-		e = l->content;
-		insert_entry(t, e->key, e->value);
+		insert_entry(t, l->key, l->value);
+		l = l->next;
 	}
 	return (t);
 }
 
-/*
+
 void	print_list(t_list *l)
 {
-	t_entry	*e;
 
 	while (l != NULL)
 	{
-		e = l->content;
-		printf("key [%s] -> val [%s]\n", e->key, e->value);
+		printf("key [%s] -> val [%s]\n", l->key, l->value);
 		l = l->next;
 	}
 }
-*/
