@@ -6,7 +6,7 @@
 /*   By: aenshin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 21:15:34 by aenshin           #+#    #+#             */
-/*   Updated: 2025/06/29 21:16:42 by aenshin          ###   ########.fr       */
+/*   Updated: 2025/06/29 23:10:13 by aenshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_hashtable	*create_hash_table(t_list *l, int size)
 	t_hashtable	*t;
 
 	t = malloc(sizeof(t_hashtable));
-	t->size = size;
+	t->size = size * 2;
 	t->count = 0;
 	t->entries = malloc(size * 2 * sizeof(t_entry));
 	while (l != NULL)
