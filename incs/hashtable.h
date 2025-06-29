@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 #define TABLE_SIZE 1024
 #define DELETED_MARKER ((void*)1)
