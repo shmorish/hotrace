@@ -34,9 +34,10 @@ int main(void) {
         
         char *found_value = search_value(table, search_key);
         if (found_value) {
-            printf("%s\n", found_value);
+            ft_putstr(found_value);
         } else {
-            printf("%s: Not found.\n", search_key);
+            ft_putstr(search_key);
+            ft_putstr(": Not found.\n");
         }
         free(search_key);
     }

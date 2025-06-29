@@ -27,4 +27,11 @@ char *search_value(t_hashtable *table, char *key);
 void free_hashtable(t_hashtable *table);
 char *get_next_line(int fd);
 
+// libs
+void ft_bzero(void *s, size_t n);
+void *ft_calloc(size_t count, size_t size);
+int ft_strcmp(const char *s1, const char *s2);
+char *ft_strdup(const char *s1);
+void ft_putstr(char *s);
+
 #endif

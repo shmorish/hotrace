@@ -5,7 +5,7 @@ t_hashtable *create_hashtable(size_t size) {
     t_hashtable *table = malloc(sizeof(t_hashtable));
     if (!table) return NULL;
     
-    table->entries = calloc(size, sizeof(t_entry));
+    table->entries = ft_calloc(size, sizeof(t_entry));
     if (!table->entries) {
         free(table);
         return NULL;
@@ -37,9 +37,9 @@ int insert_entry(t_hashtable *table, char *key, char *value) {
     unsigned int original_index = index;
     
     while (table->entries[index].key != NULL && !table->entries[index].is_deleted) {
-        if (strcmp(table->entries[index].key, key) == 0) {
+        if (ft_strcmp(table->entries[index].key, key) == 0) {
             free(table->entries[index].value);
-            table->entries[index].value = strdup(value);
+            table->entries[index].value = ft_strdup(value);
             return 1;
         }
         
@@ -56,8 +56,8 @@ int insert_entry(t_hashtable *table, char *key, char *value) {
         table->entries[index].is_deleted = 0;
     }
     
-    table->entries[index].key = strdup(key);
-    table->entries[index].value = strdup(value);
+    table->entries[index].key = ft_strdup(key);
+    table->entries[index].value = ft_strdup(value);
     table->count++;
     
     return 1;
@@ -73,7 +73,7 @@ char *search_value(t_hashtable *table, char *key) {
     
     while (table->entries[index].key != NULL) {
         if (!table->entries[index].is_deleted && 
-            strcmp(table->entries[index].key, key) == 0) {
+            ft_strcmp(table->entries[index].key, key) == 0) {
             return table->entries[index].value;
         }
         
