@@ -8,7 +8,6 @@ t_hashtable	*create_hashtable(size_t size)
 	table = malloc(sizeof(t_hashtable));
 	if (!table)
 		return (NULL);
-
 	table->entries = ft_calloc(size, sizeof(t_entry));
 	if (!table->entries)
 	{
@@ -23,7 +22,7 @@ t_hashtable	*create_hashtable(size_t size)
 unsigned int	hash_function(const char *key, size_t table_size)
 {
 	unsigned int	hash;
-	int			c;
+	int				c;
 
 	hash = 5381;
 	while ((c = *key++))
@@ -108,45 +107,4 @@ void	free_hashtable(t_hashtable *table)
 	}
 	free(table->entries);
 	free(table);
-}
-
-char	*get_next_line(int fd)
-{
-	static char	buffer[1024];
-	static int	pos = 0;
-	static int	len = 0;
-	char		*line;
-	int			line_pos;
-
-	line = malloc(1024);
-	if (!line)
-		return (NULL);
-	line_pos = 0;
-	while (1)
-	{
-		if (pos >= len)
-		{
-			len = read(fd, buffer, 1024);
-			if (len <= 0)
-			{
-				if (line_pos == 0)
-				{
-					free(line);
-					return (NULL);
-				}
-				break ;
-			}
-			pos = 0;
-		}
-		if (buffer[pos] == '\n')
-		{
-			pos++;
-			break ;
-		}
-		line[line_pos++] = buffer[pos++];
-		if (line_pos >= 1023)
-			break ;
-	}
-	line[line_pos] = '\0';
-	return (line);
 }

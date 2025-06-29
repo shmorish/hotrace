@@ -3,16 +3,14 @@
 int	main(void)
 {
 	t_hashtable	*table;
+	char		*key;
+	char		*value;
 
 	table = create_hashtable(TABLE_SIZE);
 	if (!table)
 		return (1);
-
 	while (1)
 	{
-		char	*key;
-		char	*value;
-
 		key = get_next_line(0);
 		if (!key || *key == '\0')
 		{
