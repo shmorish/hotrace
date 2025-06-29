@@ -6,7 +6,7 @@
 /*   By: aenshin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 21:15:34 by aenshin           #+#    #+#             */
-/*   Updated: 2025/06/29 23:32:03 by aenshin          ###   ########.fr       */
+/*   Updated: 2025/06/29 23:35:02 by aenshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_hashtable	*create_hash_table(t_list *l, int size)
 	return (t);
 }
 
+/*
 void	print_list(t_list *l)
 {
 	while (l != NULL)
@@ -37,3 +38,4 @@ void	print_list(t_list *l)
 		l = l->next;
 	}
 }
+*/
