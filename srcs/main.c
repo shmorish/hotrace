@@ -16,7 +16,7 @@
 static int	read_key_value_pair(char **key, char **value)
 {
 	*key = get_next_line(0);
-	if (!*key || (*key)[0] == '\n')
+	if (*key == NULL || (*key)[0] == '\n')
 	{
 		if (*key)
 			free(*key);
@@ -33,7 +33,7 @@ static int	read_key_value_pair(char **key, char **value)
 
 static void	add_node_to_list(t_list **list, t_list **last, t_list *new_node)
 {
-	if (!*list)
+	if (*list == NULL)
 	{
 		*list = new_node;
 		*last = new_node;
@@ -60,7 +60,7 @@ t_list	*input_list(void)
 		if (!read_key_value_pair(&key, &value))
 			return (list);
 		new_node = ft_lstnew(key, value);
-		if (!new_node)
+		if (new_node == NULL)
 			return (list);
 		add_node_to_list(&list, &last, new_node);
 	}
