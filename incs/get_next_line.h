@@ -6,7 +6,7 @@
 /*   By: aenshin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 16:33:33 by aenshin           #+#    #+#             */
-/*   Updated: 2023/11/19 23:19:45 by aenshin          ###   ########.fr       */
+/*   Updated: 2025/06/29 21:23:13 by aenshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE	
-#  define BUFFER_SIZE	10
+#  define BUFFER_SIZE	4096
 # endif
 # include <stddef.h>
 # include <sys/types.h>
