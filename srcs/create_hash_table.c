@@ -29,10 +29,8 @@ t_hashtable	*create_hash_table(t_list *l, int size)
 	return (t);
 }
 
-
 void	print_list(t_list *l)
 {
-
 	while (l != NULL)
 	{
 		printf("key [%s] -> val [%s]\n", l->key, l->value);
