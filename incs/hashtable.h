@@ -39,7 +39,7 @@ typedef struct s_hashtable
 	size_t	count;
 }	t_hashtable;
 
-t_hashtable		*create_hashtable(size_t size);
+// t_hashtable		*create_hashtable(size_t size);
 unsigned int	hash_function(const char *key, size_t table_size);
 int				insert_entry(t_hashtable *table, char *key, char *value);
 char			*search_value(t_hashtable *table, char *key);
@@ -60,6 +60,6 @@ t_list			*ft_lstnew(void *content);
 void			ft_lstadd_back(t_list **lst, t_list *new);
 int				ft_lstsize(t_list *lst);
 t_list			*ft_lstlast(t_list *lst);
-void free_list(t_list *list);
+void			free_list(t_list *list);
 
 #endif

@@ -12,6 +12,22 @@
 
 #include "hashtable.h"
 
+t_entry	*create_entry(char *key, char *value)
+{
+	t_entry	*entry;
+
+	entry = malloc(sizeof(t_entry));
+	if (!entry)
+	{
+		free(key);
+		free(value);
+		return (NULL);
+	}
+	entry->key = key;
+	entry->value = value;
+	return (entry);
+}
+
 t_list	*input_list(void)
 {
 	char	*key;
@@ -23,7 +39,7 @@ t_list	*input_list(void)
 	while (1)
 	{
 		key = get_next_line(0);
-		if (!key || *key == '\0')
+		if (!key || key[0] == '\0')
 		{
 			if (key)
 				free(key);
@@ -35,15 +51,9 @@ t_list	*input_list(void)
 			free(key);
 			break ;
 		}
-		entry = malloc(sizeof(t_entry));
+		entry = create_entry(key, value);
 		if (!entry)
-		{
-			free(key);
-			free(value);
 			break ;
-		}
-		entry->key = key;
-		entry->value = value;
 		ft_lstadd_back(&list, ft_lstnew(entry));
 	}
 	return (list);
@@ -74,20 +84,20 @@ void	search_data(t_hashtable *table)
 	}
 }
 
-int    main(void)
+int	main(void)
 {
-    t_hashtable    *table;
-    t_list *list;
-	int table_size;
+	t_hashtable	*table;
+	t_list		*list;
+	int			table_size;
 
 	list = input_list();
-    table_size = ft_lstsize(list);
+	table_size = ft_lstsize(list);
 	printf("Table size: %d\n", table_size);
 	table = create_hash_table(list, table_size);
 	free_list(list);
-    search_data(table);
-    free_hashtable(table);
-    return (0);
+	search_data(table);
+	free_hashtable(table);
+	return (0);
 }
 
 // __attribute__((destructor))

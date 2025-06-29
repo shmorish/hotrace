@@ -35,9 +35,9 @@ static void	ft_lstclear(t_list **lst, void (*del)(void *))
 	*lst = NULL;
 }
 
-static void free_entry(void *content)
+static void	free_entry(void *content)
 {
-	t_entry *entry;
+	t_entry	*entry;
 
 	if (content == NULL)
 		return ;
@@ -46,7 +46,7 @@ static void free_entry(void *content)
 	free(entry->value);
 }
 
-void free_list(t_list *list)
+void	free_list(t_list *list)
 {
 	if (list == NULL)
 		return ;
