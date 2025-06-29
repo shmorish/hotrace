@@ -84,7 +84,7 @@ void	search_data(t_hashtable *table)
 		}
 		else
 		{
-			ft_putstr(search_key);
+			ft_putstr_without_newline(search_key);
 			ft_putstr(": Not found.\n");
 		}
 		free(search_key);

@@ -56,6 +56,7 @@ void			*ft_calloc(size_t count, size_t size);
 int				ft_strcmp(const char *s1, const char *s2);
 char			*ft_strdup(const char *s1);
 void			ft_putstr(char *s);
+void			ft_putstr_without_newline(char *s);
 
 // list utils
 t_list			*ft_lstnew(char *key, char *value);
