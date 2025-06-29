@@ -72,3 +72,9 @@ int	main(void)
 	free_hashtable(table);
 	return (0);
 }
+
+// __attribute__((destructor))
+// void cleanup(void)
+// {
+// 	system("leaks -q hotrace");
+// }
