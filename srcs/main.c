@@ -6,11 +6,12 @@
 /*   By: shmorish <shmorish@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2000/00/00 00:00:00 by shmorish          #+#    #+#             */
-/*   Updated: 2000/00/00 00:00:00 by shmorish         ###   ########.fr       */
+/*   Updated: 2025/06/29 21:14:47 by aenshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hashtable.h"
+#include "get_next_line.h"
 
 t_entry	*create_entry(char *key, char *value)
 {

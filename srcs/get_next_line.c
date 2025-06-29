@@ -1,72 +1,90 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shmorish <shmorish@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: aenshin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2000/00/00 00:00:00 by shmorish          #+#    #+#             */
-/*   Updated: 2000/00/00 00:00:00 by shmorish         ###   ########.fr       */
+/*   Created: 2023/11/13 20:55:53 by aenshin           #+#    #+#             */
+/*   Updated: 2023/11/19 23:23:22 by aenshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "./get_next_line.h"
 
-#include "hashtable.h"
-
-static char	*allocate_line(void)
+//probably would be good to free mem and assign NULL to it when res is NULL
+//but next time : )
+char	*get_next_line(int fd)
 {
-	char	*line;
+	static char	*mem;
+	char		*res;
+	char		*tmp;
+	ssize_t		endl;
 
-	line = ft_calloc(1024, sizeof(char));
-	return (line);
+	endl = locate_endl(mem, ft_strlen(mem));
+	if (endl >= 0)
+	{
+		res = ft_strncat(NULL, mem, endl + 1);
+		tmp = mem;
+		mem = ft_strncat(NULL, mem + endl + 1, ft_strlen(mem) - endl - 1);
+		free(tmp);
+		return (res);
+	}
+	else
+	{
+		if (safe_call(mem, &res) == -1)
+			return (NULL);
+		mem = NULL;
+	}
+	return (read_fd(fd, res, &mem));
 }
 
-static int	read_buffer(int fd, char *buffer, int *pos, int *len)
+int	safe_call(char *mem, char **res)
 {
-	*len = read(fd, buffer, 1024);
-	if (*len <= 0)
-		return (0);
-	*pos = 0;
+	if (mem == NULL)
+		*res = NULL;
+	else
+	{
+		*res = ft_strncat(mem, NULL, 0);
+		if (res == NULL)
+			return (-1);
+	}
 	return (1);
 }
 
-static int	process_line(char *buffer, char *line, int *pos, int *line_pos)
+char	*read_fd(int fd, char *res, char **mem)
 {
-	if (buffer[*pos] == '\n')
+	char				*buf;
+	ssize_t				cnt;
+	ssize_t				endl;
+
+	buf = malloc(BUFFER_SIZE);
+	if (buf == NULL)
+		return (NULL);
+	cnt = read(fd, buf, BUFFER_SIZE);
+	while (cnt > 0)
 	{
-		(*pos)++;
-		return (1);
+		endl = locate_endl(buf, cnt);
+		if (endl >= 0)
+		{
+			res = ft_strncat(res, buf, endl + 1);
+			*mem = ft_strncat(NULL, buf + endl + 1, cnt - endl - 1);
+			free(buf);
+			return (res);
+		}
+		else
+			res = ft_strncat(res, buf, cnt);
+		if (res == NULL)
+			return (NULL);
+		cnt = read(fd, buf, BUFFER_SIZE);
 	}
-	line[(*line_pos)++] = buffer[(*pos)++];
-	if (*line_pos >= 1023)
-		return (1);
-	return (0);
+	return (due_norm(buf, cnt, res));
 }
 
-char	*get_next_line(int fd)
+char	*due_norm(char	*buf, ssize_t	cnt, char	*res)
 {
-	static char	buffer[1024];
-	static int	pos = 0;
-	static int	len = 0;
-	char		*line;
-	int			line_pos;
-
-	line = allocate_line();
-	if (!line)
-		return (NULL);
-	line_pos = 0;
-	while (1)
-	{
-		if (pos >= len)
-		{
-			if (!read_buffer(fd, buffer, &pos, &len))
-			{
-				if (line_pos == 0)
-					return (free(line), NULL);
-				break ;
-			}
-		}
-		if (process_line(buffer, line, &pos, &line_pos))
-			break ;
-	}
-	return (line);
+	free(buf);
+	if (cnt != ERR_CODE && ft_strlen(res) > 0)
+		return (res);
+	free(res);
+	return (NULL);
 }
