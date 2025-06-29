@@ -43,17 +43,14 @@ t_list	*input_list(void)
 		{
 			if (key)
 				free(key);
-			break ;
+			return (list);
 		}
 		value = get_next_line(0);
 		if (!value)
-		{
-			free(key);
-			break ;
-		}
+			return (free(key), list);
 		entry = create_entry(key, value);
 		if (!entry)
-			break ;
+			return (list);
 		ft_lstadd_back(&list, ft_lstnew(entry));
 	}
 	return (list);
