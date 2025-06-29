@@ -24,7 +24,6 @@ typedef struct s_entry
 {
 	char	*key;
 	char	*value;
-	int		is_deleted;
 }	t_entry;
 
 typedef struct s_hashtable
@@ -40,9 +39,8 @@ int				insert_entry(t_hashtable *table, char *key, char *value);
 char			*search_value(t_hashtable *table, char *key);
 void			free_hashtable(t_hashtable *table);
 char			*get_next_line(int fd);
-int				read_buffer(int fd, char *buffer, int *pos, int *len);
-int				process_line(char *buffer, char *line, int *pos, int *line_pos);
-char			*allocate_line(void);
+void			input_data(t_hashtable *table);
+void			search_data(t_hashtable *table);
 
 // libs
 void			ft_bzero(void *s, size_t n);

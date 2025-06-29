@@ -12,15 +12,11 @@
 
 #include "hashtable.h"
 
-int	main(void)
+void	input_data(t_hashtable *table)
 {
-	t_hashtable	*table;
-	char		*key;
-	char		*value;
+	char	*key;
+	char	*value;
 
-	table = create_hashtable(TABLE_SIZE);
-	if (!table)
-		return (1);
 	while (1)
 	{
 		key = get_next_line(0);
@@ -40,20 +36,21 @@ int	main(void)
 		free(key);
 		free(value);
 	}
+}
+
+void	search_data(t_hashtable *table)
+{
+	char	*search_key;
+	char	*found_value;
 
 	while (1)
 	{
-		char	*search_key;
-		char	*found_value;
-
 		search_key = get_next_line(0);
 		if (!search_key)
 			break ;
 		found_value = search_value(table, search_key);
 		if (found_value)
-		{
 			ft_putstr(found_value);
-		}
 		else
 		{
 			ft_putstr(search_key);
@@ -61,6 +58,17 @@ int	main(void)
 		}
 		free(search_key);
 	}
+}
+
+int	main(void)
+{
+	t_hashtable	*table;
+
+	table = create_hashtable(TABLE_SIZE);
+	if (!table)
+		return (1);
+	input_data(table);
+	search_data(table);
 	free_hashtable(table);
 	return (0);
 }

@@ -55,8 +55,7 @@ int	insert_entry(t_hashtable *table, char *key, char *value)
 		return (0);
 	index = hash_function(key, table->size);
 	original_index = index;
-	while (table->entries[index].key != NULL
-		&& !table->entries[index].is_deleted)
+	while (table->entries[index].key != NULL)
 	{
 		if (ft_strcmp(table->entries[index].key, key) == 0)
 		{
@@ -67,12 +66,6 @@ int	insert_entry(t_hashtable *table, char *key, char *value)
 		index = (index + 1) % table->size;
 		if (index == original_index)
 			return (0);
-	}
-	if (table->entries[index].is_deleted)
-	{
-		free(table->entries[index].key);
-		free(table->entries[index].value);
-		table->entries[index].is_deleted = 0;
 	}
 	table->entries[index].key = ft_strdup(key);
 	table->entries[index].value = ft_strdup(value);
@@ -91,8 +84,7 @@ char	*search_value(t_hashtable *table, char *key)
 	original_index = index;
 	while (table->entries[index].key != NULL)
 	{
-		if (!table->entries[index].is_deleted
-			&& ft_strcmp(table->entries[index].key, key) == 0)
+		if (ft_strcmp(table->entries[index].key, key) == 0)
 			return (table->entries[index].value);
 		index = (index + 1) % table->size;
 		if (index == original_index)
@@ -110,7 +102,7 @@ void	free_hashtable(t_hashtable *table)
 	i = 0;
 	while (i < table->size)
 	{
-		if (table->entries[i].key && !table->entries[i].is_deleted)
+		if (table->entries[i].key)
 		{
 			free(table->entries[i].key);
 			free(table->entries[i].value);
